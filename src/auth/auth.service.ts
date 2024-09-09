@@ -1,11 +1,19 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { CreateUserDto } from 'src/models/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
-  registration(email: string, pass: string, pass2: string) {
-    if (pass != pass2) {
+  async registration(createUserDto: CreateUserDto) {
+    if (createUserDto.pass != createUserDto.pass2) {
       throw new BadRequestException('passwords must match');
     }
-    return 'Hello World! backend service TechHive running here';
+    const user = null; //add bd, find in bd
+    if (user) {
+      throw new BadRequestException(
+        `user with email ${createUserDto.email} is already exists`,
+      );
+    }
+    //implement creating user or add from service
+    return user;
   }
 }
