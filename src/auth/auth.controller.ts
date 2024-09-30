@@ -2,7 +2,7 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateUserDto } from 'src/models/dto/create-user.dto';
-import { User } from 'src/models/user.entity';
+import UserRes from 'src/types/res';
 
 @Controller('auth')
 export class AuthController {
@@ -20,15 +20,15 @@ export class AuthController {
             email: 'user@example.com',
             id: 3,
           },
-          // tokens: {
-          //   accessToken: 'accessToken',
-          //   refreshToken: 'refreshToken',
-          // },
+          tokens: {
+            accessToken: 'accessToken',
+            refreshToken: 'refreshToken',
+          },
         },
       },
     },
   })
-  async register(@Body() createUserDto: CreateUserDto): Promise<User> {
+  async register(@Body() createUserDto: CreateUserDto): Promise<UserRes> {
     return this.authService.createUser(createUserDto);
   }
 }

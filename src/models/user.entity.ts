@@ -1,4 +1,5 @@
 import { Exclude } from 'class-transformer';
+import { Role } from 'src/types/role';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
@@ -10,12 +11,19 @@ export class User {
   email: string;
 
   @Column({ type: 'varchar', length: 255 })
-  // @Exclude()
-  password: string;
+  @Exclude()
+  hashPass: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   firstName?: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   lastName?: string;
+
+  @Column({ nullable: true })
+  @Exclude()
+  refreshToken: string;
+
+  @Column({ default: Role.User })
+  role: Role;
 }
